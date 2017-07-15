@@ -1,0 +1,15 @@
+---
+
+- step:
+    name: LUX CNN
+    image: gcr.io/tensorflow/tensorflow:0.12.1-devel-gpu
+    command: python CNN_Train.py
+
+- step:
+    name: Worker environment check
+    image: gcr.io/tensorflow/tensorflow:0.12.1-devel-gpu
+    command:
+      - pwd
+      - ls -la
+      - nvidia-smi
+      - python --version
