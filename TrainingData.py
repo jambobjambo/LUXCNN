@@ -31,5 +31,8 @@ for Directory in os.listdir(ImageDirectory):
 	DataSave.append(ImageDataArray)
 	DataSave.append(ClassifierData)
 
-	pickle.dump(DataSave, open( DataDirectory + "/data.p", "wb" ))
+	with open( DataDirectory + "/data.p", 'wb') as f:
+		pickle.dump(DataSave, f, protocol=2)
+		f.close()
+		
 	D_index += 1
