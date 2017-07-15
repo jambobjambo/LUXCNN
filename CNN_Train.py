@@ -89,8 +89,8 @@ session = tf.Session()
 session.run(tf.global_variables_initializer())
 saver = tf.train.Saver(tf.global_variables())
 
-SavedModelDIR = "../TrainedModel/"
-TrainingDataDirectory = "../TrainingData/ImageData/"
+SavedModelDIR = "./TrainedModel/"
+TrainingDataDirectory = "."
 
 TrainingData = pickle.load(open(TrainingDataDirectory + '/data.p', "rb"))
 All_TrainingData_in = TrainingData[0]
@@ -129,6 +129,8 @@ def optimize(num_iterations):
 	# Difference between start and end-times.
 	time_dif = end_time - start_time
 	# Print the time-usage.
+	if not os.path.exists(SavedModelDIR):
+		os.makedirs(SavedModelDIR)
 	saver.save(session, SavedModelDIR + "test/model.ckpt")
 
 	print("Time usage: " + str(timedelta(seconds=int(round(time_dif)))))
@@ -152,5 +154,5 @@ def Test():
 			Output.append(round(Predictions, 2))
 		print(Output)
 
-optimize(5)
+optimize(10)
 Test()
