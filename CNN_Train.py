@@ -195,5 +195,5 @@ def Test():
 			Output.append(round(Predictions, 2))
 		print(Output)
 
-optimize(1)
+optimize(50)
 #Test()
