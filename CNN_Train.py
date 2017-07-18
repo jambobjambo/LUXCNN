@@ -168,7 +168,11 @@ def optimize(num_iterations):
 	# Print the time-usage.
 	if not os.path.exists(SavedModelDIR):
 		os.makedirs(SavedModelDIR)
-	saver.save(session, SavedModelDIR + "test/model.ckpt")
+	saver.save(session, SavedModelDIR + "/model.ckpt")
+	try:
+		saver.save(session, '/valohai/outputs' + "/model.ckpt")
+	except ValueError:
+		print("cant save to directory")
 
 	print("Time usage: " + str(timedelta(seconds=int(round(time_dif)))))
 
@@ -191,5 +195,5 @@ def Test():
 			Output.append(round(Predictions, 2))
 		print(Output)
 
-optimize(10)
+optimize(1)
 #Test()
