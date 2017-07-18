@@ -130,32 +130,35 @@ def optimize(num_iterations):
 
 	for i in range(total_iterations,total_iterations + num_iterations):
 		for TrainingFile in os.listdir(TrainingDataDirectory):
-			TrainingData = pickle.load(open(TrainingDataDirectory + TrainingFile, "rb"))
-			All_TrainingData_in = TrainingData[0]
-			All_TrainingData_out = TrainingData[1]
-			Batch = 0
-			while Batch < len(All_TrainingData_in):
-				start = Batch
-				end = Batch + train_batch_size
+			try:
+				TrainingData = pickle.load(open(TrainingDataDirectory + TrainingFile, "rb"))
+				All_TrainingData_in = TrainingData[0]
+				All_TrainingData_out = TrainingData[1]
+				Batch = 0
+				while Batch < len(All_TrainingData_in):
+					start = Batch
+					end = Batch + train_batch_size
 
-				x_batch = np.array(All_TrainingData_in[start:end], dtype=float)
-				y_true_batch = np.array(All_TrainingData_out[start:end], dtype=float)
+					x_batch = np.array(All_TrainingData_in[start:end], dtype=float)
+					y_true_batch = np.array(All_TrainingData_out[start:end], dtype=float)
 
-				feed_dict_train = {x: x_batch,y_true: y_true_batch}
+					feed_dict_train = {x: x_batch,y_true: y_true_batch}
 
-				session.run(optimizer, feed_dict=feed_dict_train)
-				if Batch == 0:
-					acc = session.run(accuracy, feed_dict=feed_dict_train)
-					msg = "File " + TrainingFile + " Optimization Iteration: {0:>6}, Training Accuracy: {1:>6.1%}"
-					print(msg.format(i + 1, acc))
+					session.run(optimizer, feed_dict=feed_dict_train)
+					if Batch == 0:
+						acc = session.run(accuracy, feed_dict=feed_dict_train)
+						msg = "File " + TrainingFile + " Optimization Iteration: {0:>6}, Training Accuracy: {1:>6.1%}"
+						print(msg.format(i + 1, acc))
 
-					total_iterations += num_iterations
-					# Ending time.
-					end_time = time.time()
-					# Difference between start and end-times.
-					time_dif = end_time - start_time
-					print("Time for cycle: " + str(timedelta(seconds=int(round(time_dif)))))
-				Batch += train_batch_size
+						total_iterations += num_iterations
+						# Ending time.
+						end_time = time.time()
+						# Difference between start and end-times.
+						time_dif = end_time - start_time
+						print("Time for cycle: " + str(timedelta(seconds=int(round(time_dif)))))
+					Batch += train_batch_size
+			except KeyError:
+				print("Error opening " + TrainingFile)
 
 	total_iterations += num_iterations
 	# Ending time.
