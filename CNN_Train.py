@@ -4,8 +4,10 @@ from sklearn.metrics import confusion_matrix
 import time
 from datetime import timedelta
 import math
-import os
+import os, zipfile
 import pickle
+from urllib.request import urlopen
+
 
 filter_size1 = 50          # Convolution filters are 5 x 5 pixels.
 num_filters1 = 8         # There are 16 of these filters.
@@ -20,6 +22,25 @@ img_shape = (img_size, img_size)
 # Number of classes, one class for each of 10 digits.
 SavedModelDIR = "./TrainedModel/"
 TrainingDataDirectory = "./TrainingData/"
+
+print("Downloading Training Data")
+
+response = urlopen('https://www.dropbox.com/sh/mx99wzr0m1945ck/AABcaXgzNH425xMTagYNIjYFa?dl=1')
+zipcontent= response.read()
+with open("TrainingData.zip", 'wb') as f:
+	f.write(zipcontent)
+
+if not os.path.exists(TrainingDataDirectory):
+	os.makedirs(TrainingDataDirectory)
+
+z = zipfile.ZipFile('TrainingData.zip')
+for f in z.namelist():
+	z.extract(f, TrainingDataDirectory)
+	#if f.endswith('/'):
+		#os.makedirs(f)
+
+print("Training Data Downloaded")
+
 
 TrainingData = pickle.load(open(TrainingDataDirectory + '0.p', "rb"))
 ClassifierDir = TrainingData[1]
