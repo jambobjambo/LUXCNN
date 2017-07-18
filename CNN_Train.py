@@ -6,7 +6,10 @@ from datetime import timedelta
 import math
 import os, zipfile
 import pickle
-from urllib.request import urlopen
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
 
 
 filter_size1 = 50          # Convolution filters are 5 x 5 pixels.
