@@ -13,12 +13,18 @@ filter_size2 = 50          # Convolution filters are 5 x 5 pixels.
 num_filters2 = 16         # There are 36 of these filters.
 fc_size = 128
 img_size = 300
-num_channels = 1
-img_size_flat = img_size * img_size * num_channels
+num_channels = 3
+img_size_flat = img_size * img_size
 img_shape = (img_size, img_size)
 
 # Number of classes, one class for each of 10 digits.
-num_classes = 10
+SavedModelDIR = "./TrainedModel/"
+TrainingDataDirectory = "./TrainingData/"
+
+TrainingData = pickle.load(open(TrainingDataDirectory + '0.p', "rb"))
+ClassifierDir = TrainingData[1]
+
+num_classes = len(ClassifierDir[0])
 
 def new_weights(shape):
 	return tf.Variable(tf.truncated_normal(shape, stddev=0.05))
@@ -60,7 +66,7 @@ def new_fc_layer(input,num_inputs,num_outputs,use_relu=True): # Use Rectified Li
 	    layer = tf.nn.relu(layer)
 	return layer
 
-x = tf.placeholder(tf.float32, shape=[None, img_size_flat], name='x')
+x = tf.placeholder(tf.float32, shape=[None, num_channels, img_size_flat], name='x')
 x_image = tf.reshape(x, [-1, img_size, img_size, num_channels])
 y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
@@ -89,13 +95,6 @@ session = tf.Session()
 session.run(tf.global_variables_initializer())
 saver = tf.train.Saver(tf.global_variables())
 
-SavedModelDIR = "./TrainedModel/"
-TrainingDataDirectory = "."
-
-TrainingData = pickle.load(open(TrainingDataDirectory + '/data.p', "rb"))
-All_TrainingData_in = TrainingData[0]
-All_TrainingData_out = TrainingData[1]
-
 train_batch_size = 10
 total_iterations = 0
 def optimize(num_iterations):
@@ -106,22 +105,33 @@ def optimize(num_iterations):
 	start_time = time.time()
 
 	for i in range(total_iterations,total_iterations + num_iterations):
-		Batch = 0
-		while Batch < len(All_TrainingData_in):
-			start = Batch
-			end = Batch + train_batch_size
+		for TrainingFile in os.listdir(TrainingDataDirectory):
+			TrainingData = pickle.load(open(TrainingDataDirectory + TrainingFile, "rb"))
+			All_TrainingData_in = TrainingData[0]
+			All_TrainingData_out = TrainingData[1]
+			Batch = 0
+			while Batch < len(All_TrainingData_in):
+				start = Batch
+				end = Batch + train_batch_size
 
-			x_batch = np.array(All_TrainingData_in[start:end], dtype=float)
-			y_true_batch = np.array(All_TrainingData_out[start:end], dtype=float)
+				x_batch = np.array(All_TrainingData_in[start:end], dtype=float)
+				y_true_batch = np.array(All_TrainingData_out[start:end], dtype=float)
 
-			feed_dict_train = {x: x_batch,y_true: y_true_batch}
+				feed_dict_train = {x: x_batch,y_true: y_true_batch}
 
-			session.run(optimizer, feed_dict=feed_dict_train)
-			if Batch == 0:
-				acc = session.run(accuracy, feed_dict=feed_dict_train)
-				msg = "Optimization Iteration: {0:>6}, Training Accuracy: {1:>6.1%}"
-				print(msg.format(i + 1, acc))
-			Batch += train_batch_size
+				session.run(optimizer, feed_dict=feed_dict_train)
+				if Batch == 0:
+					acc = session.run(accuracy, feed_dict=feed_dict_train)
+					msg = "File " + TrainingFile + " Optimization Iteration: {0:>6}, Training Accuracy: {1:>6.1%}"
+					print(msg.format(i + 1, acc))
+
+					total_iterations += num_iterations
+					# Ending time.
+					end_time = time.time()
+					# Difference between start and end-times.
+					time_dif = end_time - start_time
+					print("Time for cycle: " + str(timedelta(seconds=int(round(time_dif)))))
+				Batch += train_batch_size
 
 	total_iterations += num_iterations
 	# Ending time.
@@ -155,4 +165,4 @@ def Test():
 		print(Output)
 
 optimize(10)
-Test()
+#Test()

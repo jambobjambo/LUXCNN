@@ -1,0 +1,25 @@
+{
+  "name": "shopstylescrape",
+  "version": "1.0.0",
+  "description": "\"# LUXCNN\"",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jambobjambo/LUXCNN.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jambobjambo/LUXCNN/issues"
+  },
+  "homepage": "https://github.com/jambobjambo/LUXCNN#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "jsonfile": "^3.0.1",
+    "shopstyle-sdk": "^1.1.1"
+  }
+}
