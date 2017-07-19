@@ -45,7 +45,7 @@ for URL_DOWN in URLS_Download:
 	for f in z.namelist():
 		z.extract(f, TrainingDataDirectory)
 
-	print("Downloaded and Extracted " + Url_Complete + " out of " + len(URLS_Download))
+	print("Downloaded and Extracted " + str(Url_Complete) + " out of " + str(len(URLS_Download)))
 	URLS_Download += 1
 
 print("Training Data Downloaded")
