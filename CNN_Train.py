@@ -28,7 +28,7 @@ TrainingDataDirectory = "./TrainingData/"
 
 print("Downloading Training Data")
 
-response = urlopen('https://www.dropbox.com/sh/mx99wzr0m1945ck/AABcaXgzNH425xMTagYNIjYFa?dl=1')
+response = urlopen('https://www.dropbox.com/sh/jji569o0fhbxj1s/AADVF1WErPXWxaDqlgYqOs76a?dl=1')
 zipcontent= response.read()
 with open("TrainingData.zip", 'wb') as f:
 	f.write(zipcontent)
