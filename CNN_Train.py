@@ -173,7 +173,10 @@ def optimize(num_iterations):
 		saver.save(session, '/valohai/outputs' + "/model.ckpt")
 	except ValueError:
 		print("cant save to directory")
-
+	
+	with open(SavedModelDIR + "/model.ckpt.index", 'rb') as f:
+		print(f)
+	
 	print("Time usage: " + str(timedelta(seconds=int(round(time_dif)))))
 
 def Test():
