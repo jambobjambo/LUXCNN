@@ -183,6 +183,11 @@ def optimize(num_iterations):
 	if not os.path.exists(SavedModelDIR):
 		os.makedirs(SavedModelDIR)
 	saver.save(session, SavedModelDIR + "model.ckpt")
+
+	zipf = zipfile.ZipFile('Model.zip', 'w', zipfile.ZIP_DEFLATED)
+	zipdir(SavedModelDIR, zipf)
+	zipf.close()
+
 	try:
 		shutil.copy('./Model.zip', '/valohai/outputs')
 	except ValueError:
@@ -190,12 +195,6 @@ def optimize(num_iterations):
 
 	'''with open(SavedModelDIR + "model.ckpt.index", 'rb') as f:
 		print(f.read())'''
-
-	zipf = zipfile.ZipFile('Model.zip', 'w', zipfile.ZIP_DEFLATED)
-	zipdir(SavedModelDIR, zipf)
-	zipf.close()
-
-
 
 	print("Time usage: " + str(timedelta(seconds=int(round(time_dif)))))
 
