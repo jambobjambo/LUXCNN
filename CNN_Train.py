@@ -28,29 +28,28 @@ TrainingDataDirectory = "./TrainingData/"
 
 URLS_Download = ["https://www.dropbox.com/sh/jji569o0fhbxj1s/AADVF1WErPXWxaDqlgYqOs76a?dl=1", "https://www.dropbox.com/sh/bsaf1zk9hkkojr2/AAA2ESS1OF97VMef-a9wIEgBa?dl=1", "https://www.dropbox.com/sh/4jfauwpnq3kp1dp/AAB5xI-aXmmqzmxvtOAAzl4da?dl=1", "https://www.dropbox.com/sh/llllc6s6083q8p3/AADl-x70xxoIP6No6i8v99XMa?dl=1", "https://www.dropbox.com/sh/uf9lrsi6e204rnk/AABKOTxOnMSFlcG-npAMu94qa?dl=1", "https://www.dropbox.com/sh/imlx9kucm8wrj4s/AACe8yF5AZ16xZxydjwML_lxa?dl=1", "https://www.dropbox.com/sh/qnjfi52otw5ezs2/AABg79OLj8d4VJ-MP9F49IGha?dl=1", "https://www.dropbox.com/sh/qm1jsfnuryj6t6z/AAD7L9X0vOV4yOyOBsyWD2xNa?dl=1", "https://www.dropbox.com/sh/tni0nr8thhsyk3h/AACEVc2UXemcfiawhplX5rr_a?dl=1", "https://www.dropbox.com/sh/6317shewwpcl2qn/AACRLOtJ_g2idTKT7FzD73ipa?dl=1", "https://www.dropbox.com/sh/8ix02899jipy8b9/AABf-KgnDwYtZpwEy9uRTBj4a?dl=1", "https://www.dropbox.com/sh/wnqgvoy8b7s4n10/AADsHWL2GHmfSXmbmNrbUdDpa?dl=1", "https://www.dropbox.com/sh/3xcjnzobb9svprw/AAD3D7qlCJdwT4xYNKQwC8jma?dl=1", "https://www.dropbox.com/sh/halyj3kcy16g3kw/AACNbwd_VoqVAoZ6tx1ZaqfAa?dl=1", "https://www.dropbox.com/sh/0zburn3phsiy9k0/AAAya-fJmtQE-KgI8kl0IpULa?dl=1", "https://www.dropbox.com/sh/493hyh8v0idyvrb/AAAEqkY57eW8QDgBTDZ2cyAHa?dl=1", "https://www.dropbox.com/sh/x6hleu3ming4e2y/AADaNP0XQOQQcxvFqpemO3ota?dl=1", "https://www.dropbox.com/sh/89ybc9us8kh5mxt/AADbG466GfBEVeIHVnnie0KKa?dl=1", "https://www.dropbox.com/sh/2ry3qepnedjrd3r/AAByLARIGPt5nYigyBCNm5Uoa?dl=1", "https://www.dropbox.com/sh/mreqztyo4dfwoe9/AACLLPF0gDNORhjMAXDi6vq7a?dl=1", "https://www.dropbox.com/sh/kjljxemsfb7g7wh/AAAAA8QeQOSVz2Ts9CKjeqfua?dl=1", "https://www.dropbox.com/sh/6o3boq4w2udewu1/AAA9bSU0M2b-bq10ygH21yHRa?dl=1", "https://www.dropbox.com/sh/veq4z4xhj6kzjea/AADy6aextaMmbtQrl4_xBlk3a?dl=1", "https://www.dropbox.com/sh/h61of3ca8s9bnb3/AAAThONr34gFn-0f7hnjibsHa?dl=1", "https://www.dropbox.com/sh/4kztfx11jx66uzh/AAB-Zwh-EsK9UTZFVQqC9LpSa?dl=1", "https://www.dropbox.com/sh/vppgp08folzvhxo/AADxhq38KjLtloPtCULfz_-ja?dl=1", "https://www.dropbox.com/sh/t2w66sd5gbkkr4p/AACPN9uZS9ixeDiOX0RkZvMga?dl=1", "https://www.dropbox.com/sh/sg02ipq7v4wjfsd/AADNJzLhMoQPiCyDeWQ3Gb_Da?dl=1", "https://www.dropbox.com/sh/ct9xmoxfsmxuku5/AACfRwv-EDv3k_w6qVXWDIUta?dl=1", "https://www.dropbox.com/sh/qc2a9uad6ocxjcr/AAArIBsN266uQAZKQ_cRXNVRa?dl=1", "https://www.dropbox.com/sh/aplzgd8graf43cc/AABnduTl30kg7-dbMm8bq8nsa?dl=1", "https://www.dropbox.com/sh/14xf2zxhgzjyid0/AABOf2kXaJXMqx-I7ohXRbA3a?dl=1", "https://www.dropbox.com/sh/0kq7xjsdia3y4yt/AACQW2IHhwBRwDsIXG_9Emu6a?dl=1", "https://www.dropbox.com/sh/3g0c9jpxs1zpf87/AAAkTxFXRvxqhvSA0SHl7L2Ra?dl=1", "https://www.dropbox.com/sh/8z0im1rmfxngsjf/AADCMEXnrPVV1STdgwMNUyzMa?dl=1", "https://www.dropbox.com/sh/p6ld9xkonu7zei3/AADOC8Khm4XPkU0Fmjk4swWBa?dl=1", "https://www.dropbox.com/sh/w44nm1vchb82cd6/AABWiFfz_XchxoEkZHvOoK2Ta?dl=1"]
 
-def download_data():
-	print("Downloading Training Data")
-	#total = 36
-	Limit = 1
-	Url_Complete = 1
-	for URL_DOWN in URLS_Download:
-		if Url_Complete <= Limit:
-			response = urlopen(URL_DOWN)
-			zipcontent= response.read()
-			with open("TrainingData.zip", 'wb') as f:
-				f.write(zipcontent)
+print("Downloading Training Data")
+#total = 36
+Limit = 1
+Url_Complete = 1
+for URL_DOWN in URLS_Download:
+	if Url_Complete <= Limit:
+		response = urlopen(URL_DOWN)
+		zipcontent= response.read()
+		with open("TrainingData.zip", 'wb') as f:
+			f.write(zipcontent)
 
-			if not os.path.exists(TrainingDataDirectory):
-				os.makedirs(TrainingDataDirectory)
+		if not os.path.exists(TrainingDataDirectory):
+			os.makedirs(TrainingDataDirectory)
 
-			z = zipfile.ZipFile('TrainingData.zip')
-			for f in z.namelist():
-				z.extract(f, TrainingDataDirectory)
+		z = zipfile.ZipFile('TrainingData.zip')
+		for f in z.namelist():
+			z.extract(f, TrainingDataDirectory)
 
-			print("Downloaded and Extracted " + str(Url_Complete) + " out of " + str(len(URLS_Download)))
-			Url_Complete += 1
+		print("Downloaded and Extracted " + str(Url_Complete) + " out of " + str(len(URLS_Download)))
+		Url_Complete += 1
 
-	print("Training Data Downloaded")
+print("Training Data Downloaded")
 
 
 TrainingData = pickle.load(open(TrainingDataDirectory + '0.p', "rb"))
@@ -249,6 +248,6 @@ def Test():
 
 		DressTest += 1
 
-download_data()
+#download_data()
 optimize(1)
 #Test()
