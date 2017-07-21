@@ -249,6 +249,6 @@ def Test():
 
 		DressTest += 1
 
-#download_data()
+download_data()
 optimize(1)
 #Test()
