@@ -30,7 +30,7 @@ URLS_Download = ["https://www.dropbox.com/sh/jji569o0fhbxj1s/AADVF1WErPXWxaDqlgY
 
 print("Downloading Training Data")
 #total = 36
-Limit = 1
+Limit = 36
 Url_Complete = 1
 for URL_DOWN in URLS_Download:
 	if Url_Complete <= Limit:
