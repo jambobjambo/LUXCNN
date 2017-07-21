@@ -174,16 +174,16 @@ def optimize(num_iterations):
 			except KeyError:
 				print("Error opening " + TrainingFile)
 
-		if not os.path.exists(SavedModelDIR + str(i) + '/'):
+		if not os.path.exists(SavedModelDIR + str(i) +'/'):
 			os.makedirs(SavedModelDIR + str(i) + '/')
 		saver.save(session, SavedModelDIR + str(i) + "/model.ckpt")
 
-		zipf = zipfile.ZipFile('Model.zip', 'w', zipfile.ZIP_DEFLATED)
+		zipf = zipfile.ZipFile(str(i) + '_Model.zip', 'w', zipfile.ZIP_DEFLATED)
 		zipdir(SavedModelDIR + str(i) + '/', zipf)
 		zipf.close()
 
 		try:
-			shutil.copy('./Model.zip', '/valohai/outputs/' + str(i))
+			shutil.copy('./' + str(i) + '_Model.zip', '/valohai/outputs/')
 		except ValueError:
 			print("cant save to directory")
 
@@ -249,5 +249,5 @@ def Test():
 		DressTest += 1
 
 #download_data()
-optimize(1)
+optimize(100)
 #Test()
