@@ -174,27 +174,28 @@ def optimize(num_iterations):
 			except KeyError:
 				print("Error opening " + TrainingFile)
 
+		if not os.path.exists(SavedModelDIR + str(i) + '/'):
+			os.makedirs(SavedModelDIR + str(i) + '/')
+		saver.save(session, SavedModelDIR + str(i) + "/model.ckpt")
+
+		zipf = zipfile.ZipFile('Model.zip', 'w', zipfile.ZIP_DEFLATED)
+		zipdir(SavedModelDIR + str(i) + '/', zipf)
+		zipf.close()
+
+		try:
+			shutil.copy('./Model.zip', '/valohai/outputs/' + str(i))
+		except ValueError:
+			print("cant save to directory")
+
+		'''with open(SavedModelDIR + "model.ckpt.index", 'rb') as f:
+			print(f.read())'''
+
 	total_iterations += num_iterations
 	# Ending time.
 	end_time = time.time()
 	# Difference between start and end-times.
 	time_dif = end_time - start_time
 	# Print the time-usage.
-	if not os.path.exists(SavedModelDIR):
-		os.makedirs(SavedModelDIR)
-	saver.save(session, SavedModelDIR + "model.ckpt")
-
-	zipf = zipfile.ZipFile('Model.zip', 'w', zipfile.ZIP_DEFLATED)
-	zipdir(SavedModelDIR, zipf)
-	zipf.close()
-
-	try:
-		shutil.copy('./Model.zip', '/valohai/outputs')
-	except ValueError:
-		print("cant save to directory")
-
-	'''with open(SavedModelDIR + "model.ckpt.index", 'rb') as f:
-		print(f.read())'''
 
 	print("Time usage: " + str(timedelta(seconds=int(round(time_dif)))))
 
