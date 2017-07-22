@@ -30,24 +30,7 @@ URLS_Download = ["https://www.dropbox.com/sh/jji569o0fhbxj1s/AADVF1WErPXWxaDqlgY
 
 print("Downloading Training Data")
 #total = 36
-Limit = 1
-Url_Complete = 1
-for URL_DOWN in URLS_Download:
-	if Url_Complete <= Limit:
-		response = urlopen(URL_DOWN)
-		zipcontent= response.read()
-		with open("TrainingData.zip", 'wb') as f:
-			f.write(zipcontent)
 
-		if not os.path.exists(TrainingDataDirectory):
-			os.makedirs(TrainingDataDirectory)
-
-		z = zipfile.ZipFile('TrainingData.zip')
-		for f in z.namelist():
-			z.extract(f, TrainingDataDirectory)
-
-		print("Downloaded and Extracted " + str(Url_Complete) + " out of " + str(len(URLS_Download)))
-		Url_Complete += 1
 
 print("Training Data Downloaded")
 
@@ -252,5 +235,5 @@ def Test():
 		DressTest += 1
 
 #download_data()
-optimize(1)
+optimize(100)
 #Test()
