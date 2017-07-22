@@ -30,7 +30,7 @@ URLS_Download = ["https://www.dropbox.com/sh/jji569o0fhbxj1s/AADVF1WErPXWxaDqlgY
 
 print("Downloading Training Data")
 #total = 36
-Limit = 36
+Limit = 1
 Url_Complete = 1
 for URL_DOWN in URLS_Download:
 	if Url_Complete <= Limit:
@@ -174,6 +174,7 @@ def optimize(num_iterations):
 			except KeyError:
 				print("Error opening " + TrainingFile)
 
+		print("Saving Checkpoint")
 		if not os.path.exists(SavedModelDIR + str(i) +'/'):
 			os.makedirs(SavedModelDIR + str(i) + '/')
 		saver.save(session, SavedModelDIR + str(i) + "/model.ckpt")
@@ -185,6 +186,8 @@ def optimize(num_iterations):
 		try:
 			shutil.copy('./' + str(i) + '_Model.zip', '/valohai/outputs/')
 		except ValueError:
+			print("cant save to directory")
+		except Error as err:
 			print("cant save to directory")
 
 		'''with open(SavedModelDIR + "model.ckpt.index", 'rb') as f:
@@ -249,5 +252,5 @@ def Test():
 		DressTest += 1
 
 #download_data()
-optimize(100)
+optimize(1)
 #Test()
