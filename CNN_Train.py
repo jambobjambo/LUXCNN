@@ -252,5 +252,5 @@ def Test():
 		DressTest += 1
 
 #download_data()
-optimize(100)
+optimize(10)
 #Test()
